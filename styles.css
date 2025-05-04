@@ -1,0 +1,380 @@
+/* base dark and light mode colors */
+:root {
+    --bg-color: #121212;
+    --bg-gradient1: #0f111a;
+    --bg-gradient2: #1a1c29;
+    --text-color: #e0e0e0;
+    --accent-start: #7c3aed;
+    --accent-mid: #a78bfa;
+    --accent-end: #7c3aed;
+    --scrollbar-thumb: #8b5cf6;
+    --blur-blob1: #7c3aeddd;
+    --blur-blob2: #a78bfadd;
+    --blur-blob3: #ec4899dd;
+    --link-hover-color: #a78bfa;
+    --placeholder-color: #a1a1aa; /* subtle light gray for dark mode placeholders */
+    --input-bg: #121212;
+    --input-border: #4c1d95;
+  }
+  body.light {
+    --bg-color: #f9f9fb;
+    --bg-gradient1: #ffffff;
+    --bg-gradient2: #f0f2f6;
+    --text-color: #121212;
+    --accent-start: #6c63ff;
+    --accent-mid: #ab9eff;
+    --accent-end: #6c63ff;
+    --scrollbar-thumb: #6c63ff;
+    --blur-blob1: #9c9cffcc;
+    --blur-blob2: #c0befdcc;
+    --blur-blob3: #fa9cafcc;
+    --link-hover-color: #9c9cff;
+    --placeholder-color: #4b5563; /* darker gray for light mode placeholders */
+    --input-bg: #ffffff;
+    --input-border: #6c63ff;
+  }
+  
+/* Keep top bar navigation text color consistent in all modes */
+header nav,
+header nav a,
+header nav ul li a {
+  color: #a78bfa !important; /* fixed indigo/purple color */
+  text-shadow: 0 0 8px #a78bfa;
+  transition: none !important; /* disable color transition on toggle */
+}
+
+header nav a:hover,
+header nav ul li a:hover {
+  color: #d8b4fe !important; /* lighter purple on hover */
+  text-shadow: 0 0 12px #d8b4fe;
+}
+
+/* Also keep the 'Download CV' and social icons in same color */
+#cv-link,
+#github-link,
+#linkedin-link {
+  color: #a78bfa !important;
+  text-shadow: 0 0 8px #a78bfa;
+  transition: none !important;
+}
+
+#cv-link:hover,
+#github-link:hover,
+#linkedin-link:hover {
+  color: #d8b4fe !important;
+  text-shadow: 0 0 12px #d8b4fe;
+}
+
+/* Light/dark mode toggle button color stable */
+#mode-toggle {
+  color: #a78bfa !important;
+  transition: none !important;
+}
+#mode-toggle:hover {
+  color: #d8b4fe !important;
+}
+
+/* To prevent flicker, remove color transitions on nav elements */
+header nav a,
+header nav ul li a,
+#cv-link, #github-link, #linkedin-link, #mode-toggle {
+  transition: none !important;
+}
+
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient1) 0%, var(--bg-gradient2) 60%, var(--bg-color) 100%);
+    color: var(--text-color);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    position: relative;
+    min-height: 100vh;
+    transition: background-color 0.6s ease, color 0.6s ease;
+  }
+  #animated-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2;
+    background: radial-gradient(circle at 15% 30%, var(--blur-blob1), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--blur-blob2), transparent 50%);
+    animation: gradientShift 15s ease-in-out infinite alternate;
+    transition: background 0.6s ease;
+  }
+  @keyframes gradientShift {
+    0% {
+      background-position: 15% 30%, 80% 70%;
+    }
+    100% {
+      background-position: 85% 70%, 20% 30%;
+    }
+  }
+  #stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent;
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 0.6s ease;
+  }
+  
+  /* Scrollbar colors */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-color);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 10px;
+    border: 2px solid var(--bg-color);
+    box-shadow: 0 0 8px var(--scrollbar-thumb);
+    transition: background-color 0.6s ease;
+  }
+  
+  /* Text color for normal text elements using CSS variable */
+  p, label, input, textarea, button, ul, li, a, span {
+    color: var(--text-color);
+    transition: color 0.6s ease;
+  }
+  
+  /* Headings inherit variable color except h2 which uses gradient */
+  h1, h3 {
+    color: var(--text-color);
+    transition: color 0.6s ease;
+  }
+  
+  h2 {
+    position: relative;
+    font-weight: 700;
+    font-size: 1.875rem;
+    background: linear-gradient(90deg, var(--accent-start), var(--accent-mid), var(--accent-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px var(--accent-mid);
+    margin-bottom: 2rem;
+    transition: background-color 0.6s ease;
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--accent-mid);
+    border-radius: 3px;
+    box-shadow: 0 0 8px var(--accent-mid);
+    transition: background-color 0.6s ease;
+  }
+  
+  /* Placeholder color adapting to mode */
+  input::placeholder, textarea::placeholder {
+    color: var(--placeholder-color);
+    opacity: 1; /* override opacity for consistency */
+    transition: color 0.6s ease;
+  }
+  
+  /* Input background and border colors from variables */
+  input, textarea {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-color);
+    transition: background-color 0.6s ease, border-color 0.6s ease, color 0.6s ease;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(90deg, var(--accent-start), var(--accent-mid));
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.8rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 10px var(--accent-mid);
+    transition: all 0.35s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(90deg, var(--accent-mid), var(--accent-start));
+    box-shadow: 0 0 16px var(--accent-mid);
+    transform: scale(1.05);
+  }
+  section {
+    perspective: 1200px;
+  }
+  .blob {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    background: linear-gradient(135deg, var(--blur-blob1), var(--blur-blob2));
+    filter: blur(100px);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.3;
+    will-change: transform, opacity;
+    animation: blobMove 12s ease-in-out infinite alternate;
+    transition: background 0.6s ease;
+  }
+  .blob:nth-child(1) {
+    top: 5%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  .blob:nth-child(2) {
+    top: 60%;
+    left: 65%;
+    animation-delay: 6s;
+  }
+  .blob:nth-child(3) {
+    top: 40%;
+    left: 30%;
+    background: linear-gradient(135deg, var(--blur-blob3), #f43f5eff);
+    animation-delay: 9s;
+  }
+  @keyframes blobMove {
+    0% { transform: translate(0,0) scale(1);}
+    50% { transform: translate(30px,-20px) scale(1.05);}
+    100% { transform: translate(0,0) scale(1);}
+  }
+  .portfolio-card {
+    transition: transform 0.35s cubic-bezier(.57,.21,.69,1.25), box-shadow 0.35s ease, background-color 0.6s ease;
+    will-change: transform;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow:
+      0 0 20px 0 rgba(124, 58, 237, 0.2),
+      0 8px 24px rgba(175, 0, 255, 0.25);
+    background: var(--bg-gradient2);
+    cursor: pointer;
+    position: relative;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-18px) scale(1.05) rotateZ(1deg);
+    box-shadow:
+      0 0 32px 10px var(--accent-mid),
+      0 12px 30px rgba(175, 0, 255, 0.5);
+    z-index: 10;
+    background-color: var(--bg-gradient1);
+  }
+  .skill-bar-bg {
+    background-color: #3b82f6;
+    height: 1rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    box-shadow: 0 0 8px #6366f1bb inset;
+    transition: background-color 0.6s ease;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--accent-start), var(--accent-mid));
+    box-shadow: 0 0 6px var(--accent-mid);
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 1.5s cubic-bezier(.57,.21,.69,1.25);
+  }
+  .skill-bar-fill.visible {
+    transform: scaleX(1);
+  }
+  @media (max-width: 375px) {
+    h1 {
+      font-size: 1.875rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    main {
+      padding: 0 1rem;
+    }
+    #about img {
+      width: 120px !important;
+      height: 120px !important;
+    }
+  }
+  /* Back to top button style */
+  #back-to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    background: var(--accent-mid);
+    color: white;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 0 12px var(--accent-mid);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  #back-to-top:hover {
+    background: var(--accent-start);
+    box-shadow: 0 0 20px var(--accent-mid);
+  }
+  /* Dark/Light mode toggle button */
+  #mode-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--accent-mid);
+    font-size: 1.4rem;
+    padding: 6px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #mode-toggle:hover {
+    color: var(--accent-start);
+  }
+  /* Nav override for spacing the toggle */
+  nav {
+    position: relative;
+  }
+  #nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  /* Tooltip style */
+  .tooltip {
+    position: relative;
+    cursor: pointer;
+  }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    background-color: var(--accent-mid);
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0.2em 0.6em;
+    position: absolute;
+    z-index: 10;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.25s;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+    
