@@ -297,7 +297,7 @@ header nav ul li a,
       height: 120px !important;
     }
   }
-  /* Back to top button style */
+  
   #back-to-top {
     position: fixed;
     right: 1.5rem;
@@ -376,5 +376,9 @@ header nav ul li a,
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+  }
+
+  #contact .contact-background {
+    background: var(--bg-gradient2); /* Menggunakan variabel yang sama untuk latar belakang */
   }
     
