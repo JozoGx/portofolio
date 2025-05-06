@@ -14,7 +14,7 @@ const personalData = {
         featured: false
       },
       {
-        title: "Project Three",
+        title: "Project MikrOnline",
         description: "MikrOnline adalah aplikasi web berbasis Streamlit untuk konfigurasi MikroTik secara online. Dengan antarmuka yang sederhana dan mudah diakses dari berbagai perangkat, MikrOnline memudahkan pengguna mengelola jaringan tanpa perlu Winbox atau CLI, menjadikannya solusi praktis dan efisien bagi semua kalangan.",
         image: "image/project3.png",
         featured: false
